@@ -104,26 +104,26 @@
 </div>
 
 <script>
-// ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
-// ТУТ ВСТАНОВИ СВІЙ ПАРОЛЬ (один раз і назавжди)
-const CORRECT_PASSWORD = "nafo"; // ←← ЗМІНИ ЦЕ!
-// ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
+// // ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
+// // ТУТ ВСТАНОВИ СВІЙ ПАРОЛЬ (один раз і назавжди)
+// const CORRECT_PASSWORD = "nafo"; // ←← ЗМІНИ ЦЕ!
+// // ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
 
-let constructorUnlocked = false;
+// let constructorUnlocked = false;
 
-// Перевірка паролю
-function checkPassword() {
-  const input = document.getElementById('passwordInput').value;
-  if (input === CORRECT_PASSWORD) {
-    document.getElementById('passwordModal').style.display = 'none';
-    constructorUnlocked = true;
-    document.getElementById('tab-constructor').innerHTML = 'Конструктор';
-    openTab('constructor');
-  } else {
-    document.getElementById('wrongMsg').classList.remove('hidden');
-    document.getElementById('passwordInput').value = '';
-  }
-}
+// // Перевірка паролю
+// function checkPassword() {
+//   const input = document.getElementById('passwordInput').value;
+//   if (input === CORRECT_PASSWORD) {
+//     document.getElementById('passwordModal').style.display = 'none';
+//     constructorUnlocked = true;
+//     document.getElementById('tab-constructor').innerHTML = 'Конструктор';
+//     openTab('constructor');
+//   } else {
+//     document.getElementById('wrongMsg').classList.remove('hidden');
+//     document.getElementById('passwordInput').value = '';
+//   }
+// }
 
 // Дозволяємо відкривати конструктор тільки після паролю
 function tryOpenConstructor() {
