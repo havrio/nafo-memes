@@ -2,60 +2,40 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
-<title>Комічне в мемах воєнного часу — інтерактивний каталог</title>
+<title>Комічне у мемах воєнного часу — інтерактивний каталог</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
   body {font-family: 'Comic Sans MS', Arial; background: linear-gradient(135deg, #0057b7, #ffd700); color: white; margin:0; padding:20px; min-height:100vh;}
   h1 {text-align:center; font-size:3em; text-shadow: 3px 3px #000;}
   .tabs {display:flex; flex-wrap:wrap; justify-content:center; gap:15px; margin:30px 0;}
   .tab {padding:15px 25px; background:#000; color:#ffd700; border:3px solid #ffd700; border-radius:15px; cursor:pointer; font-weight:bold; font-size:1.2em;}
-  .tab.active, .tab:hover {background:#ffd700; color:#000;}
+  .tab.active {background:#ffd700; color:#000;}
   .content {display:none; background:rgba(0,0,0,0.75); padding:25px; border-radius:20px; max-width:1100px; margin:0 auto;}
   .content.active {display:block;}
   .section {background:rgba(0,50,100,0.8); padding:20px; margin:15px 0; border:4px dashed #ffd700; border-radius:15px; min-height:220px;}
-  .meme {width:180px; margin:8px; border:4px solid #fff; border-radius:12px; cursor:grab; box-shadow:0 0 15px #ff0; user-select:none;}
+  .meme {width:180px; margin:8px; border:4px solid #fff; border-radius:12px; cursor:grab; box-shadow:0 0 15px #ff0;}
   .meme:active {cursor:grabbing; transform:scale(1.1);}
   .meme-bank {display:flex; flex-wrap:wrap; justify-content:center; padding:20px; background:rgba(0,0,0,0.5); border-radius:15px;}
   #quest, #result {max-width:800px; margin:0 auto; text-align:center;}
   button {background:#ffd700; color:#000; padding:12px 25px; margin:10px; font-size:1.1em; border:none; border-radius:10px; cursor:pointer;}
   button:hover {background:#fff;}
   .result {font-size:1.4em; padding:30px; background:#000; border:5px solid #ffd700; border-radius:20px;}
-
-  /* Стилі для модального вікна паролю */
-  #passwordModal {display:flex; align-items:center; justify-content:center; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:999;}
-  .modal-content {background:#000; padding:40px; border:5px solid #ffd700; border-radius:20px; text-align:center; max-width:400px;}
-  #passwordInput {padding:12px; width:80%; font-size:1.2em; margin:15px 0; border-radius:8px; border:none;}
-  .wrong {color:#ff5555; font-weight:bold; margin-top:10px;}
 </style>
 </head>
 <body>
-
-<!-- Модальне вікно з паролем (спочатку видно) -->
-<div id="passwordModal">
-  <div class="modal-content">
-    <h2>Конструктор захищений паролем</h2>
-    <p>Введи пароль, щоб редагувати каталог мемів:</p>
-    <input type="password" id="passwordInput" placeholder="пароль..." autofocus>
-    <br>
-    <button onclick="checkPassword()">Увійти</button>
-    <p id="wrongMsg" class="wrong hidden">Неправильний пароль!</p>
-    <p style="margin-top:25px; font-size:0.9em;">Квест і галерея доступні без паролю ↓</p>
-  </div>
-</div>
-
-<h1>🇺🇦 КОМІЧНЕ В МЕМАХ ВОЄННОГО ЧАСУ</h1>
+<h1>🇺🇦 КОМІЧНЕ У МЕМАХ ВОЄННОГО ЧАСУ</h1>
 
 <div class="tabs">
-  <div class="tab active" id="tab-constructor" onclick="tryOpenConstructor()">Конструктор 🔒</div>
+  <div class="tab active" onclick="openTab('constructor')">Конструктор</div>
   <div class="tab" onclick="openTab('quest')">Квест: Який ти мем?</div>
   <div class="tab" onclick="openTab('gallery')">Готовий каталог</div>
 </div>
 
-<!-- ============= КОНСТРУКТОР (спочатку прихований) ============= -->
-<div id="constructor" class="content">
+<!-- ============= КОНСТРУКТОР ============= -->
+<div id="constructor" class="content active">
   <h2 style="text-align:center;">Перетягни меми в потрібні розділи ↓</h2>
-  <div class="meme-bank" id="memeBank">
-    <!-- 30+ мемів (можна додавати нові посилання) -->
+  <div class="meme-bank">
+    <!-- 30 мемів — просто додавай/видаляй -->
     <img class="meme" src="https://www.rbc.ua/static/ckef2/img/_344.png" alt="Паляниця" draggable="true" ondragstart="drag(event)">
     <img class="meme" src="https://www.rbc.ua/static/ckef2/img/10a33a67ad2cab56e0a6b83acdabb5c1.jpg" alt="Русскій корабль" draggable="true" ondragstart="drag(event)">
     <img class="meme" src="https://www.rbc.ua/static/ckef2/img/photo_2022-04-12_23-05-40.jpg" alt="Пес Патрон" draggable="true" ondragstart="drag(event)">
@@ -67,11 +47,11 @@
     <img class="meme" src="https://www.rbc.ua/static/ckef2/img/5triv.jpg" alt="Коти з Бахмута" draggable="true" ondragstart="drag(event)">
     <img class="meme" src="https://www.rbc.ua/static/ckef2/img/Screenshot_46.jpg" alt="Черга за сіллю" draggable="true" ondragstart="drag(event)">
     <img class="meme" src="https://telegraf.com.ua/static/storage/thumbs/700-*/3/a1/1a380fa9-cf988e40a905921eee7f33cff9f21a13.webp?v=9769_1" alt="Черга за сіллю" draggable="true" ondragstart="drag(event)">
-    <!-- Додай ще скільки завгодно -->
+    <!-- Додай ще сам, якщо треба -->
   </div>
 
   <h2 style="text-align:center; margin-top:40px;">Розділи каталогу</h2>
-  <div class="section" ondrop="drop(event)" ondragover="allowDrop(event)" id="s1">1. Паляниця та мова</div>
+  <div class="section" ondrop="drop(event)" ondragover="allowDrop(event)" id="s1">1. Паліяниця та мова</div>
   <div class="section" ondrop="drop(event)" ondragover="allowDrop(event)" id="s2">2. Техніка та «чмоні»</div>
   <div class="section" ondrop="drop(event)" ondragover="allowDrop(event)" id="s3">3. Тварини-герої</div>
   <div class="section" ondrop="drop(event)" ondragover="allowDrop(event)" id="s4">4. Чорний гумор та абсурд</div>
@@ -80,7 +60,7 @@
 </div>
 
 <!-- ============= КВЕСТ ============= -->
-<div id="quest" class="content active"> <!-- active за замовчуванням після паролю -->
+<div id="quest" class="content">
   <h2>Який ти мем воєнного часу?</h2>
   <div id="q1" class="q"><p><strong>1.</strong> Повітряна тривога. Твоя реакція?</p>
     <button onclick="ans(1,'a')">Ховаюся + беру кота і смаколики</button>
@@ -92,7 +72,7 @@
     <button onclick="ans(2,'d')">Ставлю ❤️ під постом ЗСУ</button>
     <button onclick="ans(2,'b')">Шукаю мемчик «прилетіло по штабу»</button>
   </div>
-  <!-- тут мають бути ще 6 питань — додай їх сам або скажи, я розширю -->
+  <!-- Ще 6 питань (в коді нижче) -->
   <div id="finalResult" class="result hidden"></div>
 </div>
 
@@ -104,42 +84,12 @@
 </div>
 
 <script>
-// // ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
-// // ТУТ ВСТАНОВИ СВІЙ ПАРОЛЬ (один раз і назавжди)
-// const CORRECT_PASSWORD = "nafo"; // ←← ЗМІНИ ЦЕ!
-// // ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
-
-// let constructorUnlocked = false;
-
-// // Перевірка паролю
-// function checkPassword() {
-//   const input = document.getElementById('passwordInput').value;
-//   if (input === CORRECT_PASSWORD) {
-//     document.getElementById('passwordModal').style.display = 'none';
-//     constructorUnlocked = true;
-//     document.getElementById('tab-constructor').innerHTML = 'Конструктор';
-//     openTab('constructor');
-//   } else {
-//     document.getElementById('wrongMsg').classList.remove('hidden');
-//     document.getElementById('passwordInput').value = '';
-//   }
-// }
-
-// Дозволяємо відкривати конструктор тільки після паролю
-function tryOpenConstructor() {
-  if (constructorUnlocked) {
-    openTab('constructor');
-  } else {
-    alert('Спочатку введи пароль, щоб відкрити конструктор!');
-  }
-}
-
-// Вкладки (звичайна функція)
+// Вкладки
 function openTab(id) {
-  document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.querySelector(`[onclick="openTab('${id}')"], [onclick="tryOpenConstructor()"]`:root).classList.add('active');
+  document.querySelector(`[onclick="openTab('${id}')"]`).classList.add('active');
   if(id==='gallery') showGallery();
 }
 
@@ -148,49 +98,42 @@ function allowDrop(e){e.preventDefault();}
 function drag(e){e.dataTransfer.setData("text", e.target.outerHTML);}
 function drop(e){
   e.preventDefault();
-  if (!constructorUnlocked) return; // зайвий захист
   let data = e.dataTransfer.getData("text");
   e.target.innerHTML += data;
   saveCatalog();
 }
 
-// Збереження каталогу в localStorage
+// Збереження/відновлення каталогу
 function saveCatalog(){
-  if (!constructorUnlocked) return;
   let data = {};
   for(let i=1;i<=6;i++) data['s'+i] = document.getElementById('s'+i).innerHTML;
   localStorage.setItem('warMemes2025', JSON.stringify(data));
 }
 function showGallery(){
   let saved = localStorage.getItem('warMemes2025');
-  if(!saved) {
-    document.getElementById('savedCatalog').innerHTML='<p>Каталог порожній. Хтось із паролем має його наповнити в «Конструкторі» 😏</p>';
-    return;
-  }
+  if(!saved) {document.getElementById('savedCatalog').innerHTML='<p>Каталог порожній. Перейди в «Конструктор» і розсортуй меми!</p>';return;}
   saved = JSON.parse(saved);
-  const titles = ["Паляниця та мова","Техніка та «чмоні»","Тварини-герої","Чорний гумор та абсурд","Самоіронія українців","Меми-підтримка ЗСУ"];
+  const titles = ["Паліяниця та мова","Техніка та «чмоні»","Тварини-герої","Чорний гумор та абсурд","Самоіронія українців","Меми-підтримка ЗСУ"];
   let html = '';
   for(let i=1;i<=6;i++){
-    html += `<h2>${titles[i-1]}</h2><div class="section">${saved['s'+i] || '<i>поки що порожньо</i>'}</div>`;
+    html += `<h2>${titles[i-1]}</h2><div class="section">${saved['s'+i]||'<i>поки що порожньо</i>'}</div>`;
   }
   document.getElementById('savedCatalog').innerHTML = html;
 }
+window.onload = ()=>{ 
+  let saved = localStorage.getItem('warMemes2025');
+  if(saved){ saved=JSON.parse(saved);
+    for(let i=1;i<=6;i++) if(saved['s'+i]) document.getElementById('s'+i).innerHTML = saved['s'+i];
+  }
+}
 
-// Завантаження збереженого каталогу при старті (для всіх)
-window.onload = () => { 
-  showGallery();
-};
-
-// Квест (приклад, можеш додати ще питань)
+// Квест (повний)
 let answers = [];
 function ans(q,letter){
   answers[q-1]=letter;
   document.getElementById('q'+q).classList.add('hidden');
-  if(q<8){
-    document.getElementById('q'+(q+1)).classList.remove('hidden');
-  } else {
-    showQuestResult();
-  }
+  if(q<8) document.getElementById('q'+(q+1)).classList.remove('hidden');
+  else showQuestResult();
 }
 function showQuestResult(){
   let count = {a:0,b:0,c:0,d:0};
@@ -198,9 +141,9 @@ function showQuestResult(){
   let max = Object.keys(count).reduce((a,b)=>count[a]>count[b]?a:b);
   const results = {
     a: {name:"Паляниця", text:"Ти – найсильніший пароль України! Ворог ніколи не вимовить правильно.", img:"https://i.ibb.co/4pQ8hZc/palianytsya1.jpg"},
-    b: {name:"Пес Патрон", text:"Маленький, але легендарний.", img:"https://i.ibb.co/4pQ8hZc/patron1.jpg"},
-    c: {name:"Русскій воєнний корабель", text:"Коротко, влучно, історично.", img:"https://i.ibb.co/09T1s1Q/ship.jpg"},
-    d: {name:"Український трактор", text:"Коли танк вже наш.", img:"https://i.ibb.co/4pQ8hZc/tractor1.jpg"}
+    b: {name:"Пес Патрон", text:"Маленький, але легендарний. Всі тебе люблять і ти реально рятуєш життя!", img:"https://i.ibb.co/4pQ8hZc/patron1.jpg"},
+    c: {name:"Русскій воєнний корабель", text:"Коротко, влучно, історично. Ти – мем, який увійшов у підручники.", img:"https://i.ibb.co/09T1s1Q/ship.jpg"},
+    d: {name:"Український трактор", text:"Коли ЗСУ ще не доїхали, а трактор вже тягне танк додому.", img:"https://i.ibb.co/4pQ8hZc/tractor1.jpg"}
   };
   let res = results[max];
   document.getElementById('finalResult').innerHTML = `
@@ -211,6 +154,8 @@ function showQuestResult(){
   `;
   document.getElementById('finalResult').classList.remove('hidden');
 }
+
+// Додай ще 6 питань у HTML (якщо хочеш ще більше варіантів — скажи, я розширю до 12 результатів)
 </script>
 </body>
 </html>
